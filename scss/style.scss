@@ -114,9 +114,16 @@
   align-items: center;
   justify-content: center;
 }
+
+@mixin title-properties {
+  @include font-roboto-400;
+  font-size: 2.7em;
+  margin-bottom: 50px;
+  color: $title-color;
+}
 //===/MIXINS===
 
-//===COMMON===3f506e
+//===COMMON===
 $text-color: #526589;
 $title-color: #4b5e81;
 $subtitle-color: #4b5e81;
@@ -124,12 +131,8 @@ $section-background: #F2F2F2;
 
 .wrapper-inner {
   margin: 0 auto;
-  width: 1140px;
+  max-width: 1300px;
   padding: 0 30px;
-}
-
-section {
-  padding: 20px 0 50px;
 }
 
 * {
@@ -153,10 +156,7 @@ section {
 }
 
 .centered-title {
-  @include font-roboto-500;
-  font-size: 2.7em;
-  margin-bottom: 50px;
-  color: $title-color;
+  @include title-properties;
   text-align: center;
 }
 
@@ -237,7 +237,7 @@ section {
   top: 10px;
 }
 
-#slider{ /*центровка слайдера*/
+#slider{
   margin: 0 auto;
 }
 
@@ -329,7 +329,8 @@ label, a{
   display: inline-block;
   width: 15px;
   height: 15px;
-  background: $section-background;
+  background: #cbcbcb;
+  margin: 0 5px 0 5px;
 }
 
 #active{
@@ -372,35 +373,39 @@ header {
   padding-top: 10px;
 
   .header-logo {
-    margin-top: 10px;
+    display: flex;
+    justify-content: flex-start;
 
     img {
-      width: 240px;
+      height: 100px;
     }
   }
 }
-
 //===/HEADER===
 
 //===SPECIFICATION-SECTION===
-.specification__block {
-  display: flex;
+.specification {
+  padding: 0 0 50px;
 
-  &-img {
-    flex-basis: 50%;
-    @include flex-centered;
+  &__block {
+    display: flex;
 
-    img {
-      width: 100%;
+    &-img {
+      flex-basis: 50%;
+      @include flex-centered;
+
+      img {
+        width: 100%;
+      }
     }
-  }
 
-  &-about {
-    flex-basis: 50%;
-  }
+    &-about {
+      flex-basis: 50%;
+    }
 
-  &-img + &-about {
-    padding-left: 20px;
+    &-img + &-about {
+      padding-left: 20px;
+    }
   }
 }
 
@@ -425,14 +430,20 @@ header {
       table {
         width: 100%;
         border-collapse: collapse;
-        margin: 0 auto;
 
         td {
           padding: 8px 25px;
         }
 
-        tr:nth-child(even) {
-          background: linear-gradient(90deg, rgba(255,255,255,1) 80%, rgba(242,242,242,1) 100%);
+        tr:nth-child(2n) {
+
+          td:nth-child(1n) {
+            background: rgba(255,255,255,1);
+          }
+
+          td:nth-child(2n) {
+            background: linear-gradient(90deg, rgba(255,255,255,1) 80%, rgba(242,242,242,1) 100%);
+          }
         }
 
         tr + tr {
@@ -461,10 +472,7 @@ header {
   padding: 50px 0;
 
   &__title {
-    @include font-roboto-400;
-    font-size: 2.7em;
-    margin-bottom: 20px;
-    color: $title-color;
+    @include title-properties;
   }
 
   &__info {
@@ -476,30 +484,11 @@ header {
 }
 //===/INSTRUCTION===
 
-//===MORE-INFO===
-.more-info {
-  background: url(../img/background2.svg);
-  height: 150px;
-  width: 100%;
-  transform: rotate(180deg);
-
-  &__footer-logo {
-    display: flex;
-    justify-content: center;
-
-    img {
-      transform: rotate(180deg);
-      width: 160px;
-    }
-  }
-}
-//===/MORE-INFO===
-
 //===PREVIEW===
 .preview {
+  padding: 20px 0 40px 30px;
   height: 280px;
-  //background: $section-background;
-  background: url(../img/bg-footer.svg);
+  background: url(../img/bg-footer-2.svg);
   display: flex;
   align-items: center;
   justify-content: flex-end;
@@ -511,11 +500,77 @@ header {
   }
 
   &__img {
-    width: 500px;
+    flex-basis: 500px;
 
     img {
       width: 100%;
     }
   }
 }
-//===/MORE-INFO===
+//===/PREVIEW===
+
+//===FOOTER===
+.footer {
+  background: url(../img/background2.svg);
+  background-size: cover;
+  width: 100%;
+  height: 150px;
+  transform: rotate(180deg);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 40px;
+
+  img {
+    line-height: 0;
+    height: 60px;
+    transform: rotate(180deg);
+  }
+}
+//===/FOOTER===
+
+@media screen and (max-width: 990px) {
+
+  .common-title, .centered-title, .instruction__title, .preview__title {
+    font-size: 2em;
+  }
+
+  .common-text {
+    font-size: 1.2em;
+    line-height: 1.35em;
+    margin-left: 0;
+  }
+
+  .specification {
+    padding: 20px 0 50px;
+
+    &__block {
+      flex-direction: column-reverse;
+
+      &-about {
+        margin-bottom: 20px;
+      }
+
+      &-img + &-about {
+        padding-left: 0;
+      }
+    }
+  }
+
+  .characteristics__info {
+    flex-direction: column;
+    justify-content: center;
+
+    &-table {
+      margin-bottom: 50px;
+      width: 100%;
+    }
+
+    &-img {
+
+      img {
+        max-width: 400px;
+      }
+    }
+  }
+}
